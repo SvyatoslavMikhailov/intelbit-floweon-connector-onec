@@ -1,0 +1,35 @@
+{
+  "odata.metadata": "https://1c-host/ut/odata/standard.odata/$metadata#Catalog_Номенклатура",
+  "value": [
+    {
+      "Ref_Key": "nom-guid-0001",
+      "Code": "00001",
+      "Description": "Ноутбук Dell XPS 13",
+      "НаименованиеПолное": "Ноутбук Dell XPS 13 (2026), i7, 32GB, 1TB SSD",
+      "ВидНоменклатуры": "Товар",
+      "ЕдиницаИзмерения": "шт",
+      "СтавкаНДС": "НДС20",
+      "DeletionMark": false
+    },
+    {
+      "Ref_Key": "nom-guid-0002",
+      "Code": "00002",
+      "Description": "Мышь беспроводная Logitech MX Master 3",
+      "НаименованиеПолное": "Мышь беспроводная Logitech MX Master 3 (графит)",
+      "ВидНоменклатуры": "Товар",
+      "ЕдиницаИзмерения": "шт",
+      "СтавкаНДС": "НДС20",
+      "DeletionMark": false
+    },
+    {
+      "Ref_Key": "nom-guid-0003",
+      "Code": "00003",
+      "Description": "Клавиатура механическая Cherry MX",
+      "НаименованиеПолное": "Клавиатура механическая Cherry MX Blue, USB",
+      "ВидНоменклатуры": "Товар",
+      "ЕдиницаИзмерения": "шт",
+      "СтавкаНДС": "НДС20",
+      "DeletionMark": false
+    }
+  ]
+}
