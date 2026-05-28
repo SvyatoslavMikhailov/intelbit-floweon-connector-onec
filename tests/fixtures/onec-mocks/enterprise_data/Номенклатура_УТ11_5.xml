@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Message xmlns="urn:1C.ru:EnterpriseData:1.5">
+  <Header>
+    <MessageId>550e8400-e29b-41d4-a716-446655440001</MessageId>
+    <CreatedAt>2026-05-28T12:00:00</CreatedAt>
+    <SourceNode>ЦентральныйУзел</SourceNode>
+  </Header>
+  <Body>
+    <Catalog.Номенклатура>
+      <Ref_Key>nom-guid-0001</Ref_Key>
+      <Code>00001</Code>
+      <Description>Ноутбук Dell XPS 13</Description>
+      <НаименованиеПолное>Ноутбук Dell XPS 13 (2026), i7, 32GB, 1TB SSD</НаименованиеПолное>
+      <ВидНоменклатуры>Товар</ВидНоменклатуры>
+      <ЕдиницаИзмерения>шт</ЕдиницаИзмерения>
+      <СтавкаНДС>НДС20</СтавкаНДС>
+      <DeletionMark>false</DeletionMark>
+    </Catalog.Номенклатура>
+    <Catalog.Номенклатура>
+      <Ref_Key>nom-guid-0002</Ref_Key>
+      <Code>00002</Code>
+      <Description>Мышь беспроводная Logitech MX Master 3</Description>
+      <НаименованиеПолное>Мышь беспроводная Logitech MX Master 3 (графит)</НаименованиеПолное>
+      <ВидНоменклатуры>Товар</ВидНоменклатуры>
+      <ЕдиницаИзмерения>шт</ЕдиницаИзмерения>
+      <СтавкаНДС>НДС20</СтавкаНДС>
+      <DeletionMark>false</DeletionMark>
+    </Catalog.Номенклатура>
+    <Catalog.Номенклатура>
+      <Ref_Key>nom-guid-0003</Ref_Key>
+      <Code>00003</Code>
+      <Description>Клавиатура механическая Cherry MX</Description>
+      <НаименованиеПолное>Клавиатура механическая Cherry MX Blue, USB</НаименованиеПолное>
+      <ВидНоменклатуры>Товар</ВидНоменклатуры>
+      <ЕдиницаИзмерения>шт</ЕдиницаИзмерения>
+      <СтавкаНДС>НДС20</СтавкаНДС>
+      <DeletionMark>false</DeletionMark>
+    </Catalog.Номенклатура>
+    <Catalog.Номенклатура>
+      <Ref_Key>nom-guid-0004</Ref_Key>
+      <Code>00004</Code>
+      <Description>Монитор Samsung 27" 4K</Description>
+      <НаименованиеПолное>Монитор Samsung 27" 4K UHD 144Hz IPS</НаименованиеПолное>
+      <ВидНоменклатуры>Товар</ВидНоменклатуры>
+      <ЕдиницаИзмерения>шт</ЕдиницаИзмерения>
+      <СтавкаНДС>НДС20</СтавкаНДС>
+      <DeletionMark>false</DeletionMark>
+    </Catalog.Номенклатура>
+    <Catalog.Номенклатура>
+      <Ref_Key>nom-guid-0005</Ref_Key>
+      <Code>00005</Code>
+      <Description>Услуга настройки ПК</Description>
+      <НаименованиеПолное>Услуга по настройке и установке программного обеспечения</НаименованиеПолное>
+      <ВидНоменклатуры>Услуга</ВидНоменклатуры>
+      <ЕдиницаИзмерения>час</ЕдиницаИзмерения>
+      <СтавкаНДС>НДС20</СтавкаНДС>
+      <DeletionMark>false</DeletionMark>
+    </Catalog.Номенклатура>
+  </Body>
+</Message>

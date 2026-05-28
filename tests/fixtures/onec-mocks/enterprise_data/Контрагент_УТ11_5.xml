@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Message xmlns="urn:1C.ru:EnterpriseData:1.5">
+  <Header>
+    <MessageId>550e8400-e29b-41d4-a716-446655440002</MessageId>
+    <CreatedAt>2026-05-28T12:00:00</CreatedAt>
+    <SourceNode>ЦентральныйУзел</SourceNode>
+  </Header>
+  <Body>
+    <Catalog.Контрагенты>
+      <Ref_Key>cp-guid-0001</Ref_Key>
+      <Code>К000001</Code>
+      <Description>ООО Кибер Флот</Description>
+      <ИНН>7701234567</ИНН>
+      <КПП>770101001</КПП>
+      <ЭтоПокупатель>true</ЭтоПокупатель>
+      <ЭтоПоставщик>false</ЭтоПоставщик>
+      <DeletionMark>false</DeletionMark>
+    </Catalog.Контрагенты>
+    <Catalog.Контрагенты>
+      <Ref_Key>cp-guid-0002</Ref_Key>
+      <Code>К000002</Code>
+      <Description>ИП Иванов Иван Иванович</Description>
+      <ИНН>773456789012</ИНН>
+      <КПП></КПП>
+      <ЭтоПокупатель>true</ЭтоПокупатель>
+      <ЭтоПоставщик>false</ЭтоПоставщик>
+      <DeletionMark>false</DeletionMark>
+    </Catalog.Контрагенты>
+    <Catalog.Контрагенты>
+      <Ref_Key>cp-guid-0003</Ref_Key>
+      <Code>К000003</Code>
+      <Description>АО Интелбит</Description>
+      <ИНН>7712345678</ИНН>
+      <КПП>771201001</КПП>
+      <ЭтоПокупатель>false</ЭтоПокупатель>
+      <ЭтоПоставщик>true</ЭтоПоставщик>
+      <DeletionMark>false</DeletionMark>
+    </Catalog.Контрагенты>
+  </Body>
+</Message>
