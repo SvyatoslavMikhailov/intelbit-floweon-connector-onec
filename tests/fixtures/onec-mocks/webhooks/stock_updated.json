@@ -1,0 +1,12 @@
+{
+  "event_type": "stock.updated",
+  "event_id": "evt-stk-0001",
+  "occurred_at": "2026-05-28T12:01:00Z",
+  "data": {
+    "warehouse_key": "wh-guid-0001",
+    "items": [
+      {"nomenclature_key": "nom-guid-0001", "quantity": 15, "reserved": 2},
+      {"nomenclature_key": "nom-guid-0002", "quantity": 42, "reserved": 0}
+    ]
+  }
+}

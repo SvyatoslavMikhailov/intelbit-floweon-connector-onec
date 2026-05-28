@@ -1,0 +1,12 @@
+{
+  "event_type": "price.updated",
+  "event_id": "evt-prc-0001",
+  "occurred_at": "2026-05-28T12:02:00Z",
+  "data": {
+    "price_type": "Розничная",
+    "items": [
+      {"nomenclature_key": "nom-guid-0001", "price": "89990.00", "currency": "RUB"},
+      {"nomenclature_key": "nom-guid-0002", "price": "7490.00", "currency": "RUB"}
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "event_type": "catalog.updated",
+  "event_id": "evt-cat-0001",
+  "occurred_at": "2026-05-28T12:00:00Z",
+  "data": {
+    "items": [
+      {"ref_key": "nom-guid-0001", "code": "00001", "description": "Ноутбук Dell XPS 13"},
+      {"ref_key": "nom-guid-0002", "code": "00002", "description": "Мышь Logitech"}
+    ]
+  }
+}

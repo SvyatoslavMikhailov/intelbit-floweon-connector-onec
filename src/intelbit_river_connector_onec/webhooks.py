@@ -1,22 +1,83 @@
-"""Webhook-receiver для входящих событий 1С (stub)."""
+"""Webhook-receiver: HMAC-SHA256 проверка подписи, replay-защита, dedup через Redis."""
 
+from __future__ import annotations
+
+import hashlib
+import hmac
+import json
+import time
 from typing import Any
 
 
+class WebhookSignatureError(ValueError):
+    """Ошибка проверки подписи входящего webhook."""
+
+
+SUPPORTED_EVENTS = frozenset(
+    ["catalog.updated", "stock.updated", "price.updated", "order.status.changed"]
+)
+
+
 class OneCWebhookReceiver:
-    """Приём событий от 1С через HTTP-обратный вызов.
+    """Проверка и разбор входящих webhook-событий от 1С."""
 
-    Stub — реализация в фазе 3 MVP.
-    Предполагается HMAC-SHA256 валидация подписи.
-    """
+    def __init__(self, config: dict[str, Any]) -> None:
+        self._secret: str = config["webhook_secret"]
+        self._replay_window: int = int(config.get("replay_window_sec", 300))
 
-    def __init__(self, secret: str) -> None:
-        self.secret = secret
+    def verify_signature(self, headers: dict[str, str], body: bytes) -> None:
+        """Проверить X-Signature: t=<unix>,v1=<hex>.
 
-    def verify_signature(self, payload: bytes, signature: str) -> bool:
-        """Проверка HMAC-подписи входящего события."""
-        raise NotImplementedError
+        Поднимает WebhookSignatureError при неверной подписи или replay-атаке.
+        """
+        sig_header = headers.get("X-Signature") or headers.get("x-signature") or ""
+        if not sig_header:
+            raise WebhookSignatureError("Заголовок X-Signature отсутствует")
 
-    async def handle(self, event_type: str, payload: dict[str, Any]) -> None:
-        """Обработка события от 1С."""
-        raise NotImplementedError
+        parts: dict[str, str] = {}
+        for chunk in sig_header.split(","):
+            k, _, v = chunk.partition("=")
+            parts[k.strip()] = v.strip()
+
+        timestamp_str = parts.get("t", "")
+        v1 = parts.get("v1", "")
+        if not timestamp_str or not v1:
+            raise WebhookSignatureError("X-Signature: отсутствует t или v1")
+
+        try:
+            timestamp = int(timestamp_str)
+        except ValueError as exc:
+            raise WebhookSignatureError("X-Signature: t не является целым числом") from exc
+
+        now = int(time.time())
+        if abs(now - timestamp) > self._replay_window:
+            raise WebhookSignatureError(
+                f"Replay-атака: разница времени {abs(now - timestamp)}s > {self._replay_window}s"
+            )
+
+        payload = f"{timestamp_str}.".encode() + body
+        expected = hmac.new(self._secret.encode(), payload, hashlib.sha256).hexdigest()
+        if not hmac.compare_digest(expected, v1):
+            raise WebhookSignatureError("X-Signature: неверный HMAC-SHA256")
+
+    def deduplicate(self, event_id: str, redis_client: Any) -> bool:
+        """Проверить уникальность события через Redis SET NX.
+
+        Возвращает True если событие новое, False если дубликат.
+        """
+        key = f"webhook:dedup:{event_id}"
+        result = redis_client.set(key, "1", nx=True, ex=86400)
+        return result is not None
+
+    def parse_event(self, body: bytes) -> dict[str, Any]:
+        """Разобрать тело webhook-события с валидацией типа."""
+        try:
+            data: dict[str, Any] = json.loads(body)
+        except json.JSONDecodeError as exc:
+            raise ValueError(f"Невалидный JSON в теле webhook: {exc}") from exc
+
+        event_type: str = data.get("event_type", "")
+        if event_type not in SUPPORTED_EVENTS:
+            raise ValueError(f"Неподдерживаемый тип события: {event_type!r}")
+
+        return data

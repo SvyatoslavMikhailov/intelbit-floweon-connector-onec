@@ -1,0 +1,11 @@
+{
+  "event_type": "order.status.changed",
+  "event_id": "evt-ord-0001",
+  "occurred_at": "2026-05-28T13:00:00Z",
+  "data": {
+    "order_ref_key": "order-guid-created-0001",
+    "order_number": "Ш000001",
+    "old_status": "НеСогласован",
+    "new_status": "Согласован"
+  }
+}
