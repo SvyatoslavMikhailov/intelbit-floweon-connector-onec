@@ -1,23 +1,89 @@
-"""Клиент HTTPСервисов 1С (stub)."""
+"""Клиент HTTPСервисов 1С: async httpx + tenacity retry + Idempotency-Key."""
 
+from __future__ import annotations
+
+import uuid
 from typing import Any
+
+import httpx
+from tenacity import retry, retry_if_exception, stop_after_attempt, wait_exponential
+
+from intelbit_river_connector_onec.auth import OneCAuth
+
+_USER_AGENT = "intelbit-river-connector-onec/0.2.0"
+
+
+class OneCHttpServiceError(Exception):
+    """Ошибка HTTP-вызова к 1С с расшифрованным кодом из тела ответа."""
+
+    def __init__(self, status_code: int, error_code: str, message: str) -> None:
+        super().__init__(f"1C HTTP error {status_code} [{error_code}]: {message}")
+        self.status_code = status_code
+        self.error_code = error_code
+        self.onec_message = message
 
 
 class OneCHttpServiceClient:
-    """Вызов HTTPСервисов, опубликованных в 1С.
+    """Async-клиент HTTPСервисов 1С с retry и idempotency."""
 
-    Stub — реализация в фазе 3 MVP.
-    """
-
-    def __init__(self, base_url: str, auth_header: str) -> None:
-        self.base_url = base_url
-        self.auth_header = auth_header
+    def __init__(self, config: dict[str, Any], auth: OneCAuth) -> None:
+        self._base_url = config["base_url"].rstrip("/")
+        self._timeout: float = float(config.get("timeout", 30.0))
+        self._auth = auth
 
     async def call(
         self,
         method: str,
         path: str,
-        body: dict[str, Any] | None = None,
+        payload: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
-        """Вызов HTTPСервиса 1С."""
-        raise NotImplementedError
+        """Вызов HTTPСервиса 1С. Non-GET запросы получают Idempotency-Key."""
+        headers = await self._auth.get_headers()
+        headers["Accept"] = "application/json"
+        headers["User-Agent"] = _USER_AGENT
+        if method.upper() != "GET":
+            headers["Idempotency-Key"] = str(uuid.uuid4())
+
+        return await self._call_with_retry(method, path, payload, headers)
+
+    @retry(
+        stop=stop_after_attempt(5),
+        wait=wait_exponential(multiplier=1, min=1, max=8),
+        retry=retry_if_exception(
+            lambda e: not (isinstance(e, OneCHttpServiceError) and e.status_code < 500)
+        ),
+        reraise=True,
+    )
+    async def _call_with_retry(
+        self,
+        method: str,
+        path: str,
+        payload: dict[str, Any] | None,
+        headers: dict[str, str],
+    ) -> dict[str, Any]:
+        url = f"{self._base_url}{path}"
+        async with httpx.AsyncClient(timeout=self._timeout) as client:
+            response = await client.request(
+                method,
+                url,
+                json=payload,
+                headers=headers,
+            )
+
+        if response.status_code >= 400:
+            self._raise_onec_error(response)
+
+        result: dict[str, Any] = response.json()
+        return result
+
+    @staticmethod
+    def _raise_onec_error(response: httpx.Response) -> None:
+        try:
+            body: dict[str, Any] = response.json()
+            err = body.get("error", {})
+            code: str = str(err.get("code", str(response.status_code)))
+            message: str = str(err.get("message", response.text))
+        except Exception:
+            code = str(response.status_code)
+            message = response.text
+        raise OneCHttpServiceError(response.status_code, code, message)
