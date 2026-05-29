@@ -68,8 +68,8 @@ class EnterpriseDataClient:
         root = etree.Element(_tag("Message"), nsmap=nsmap)  # type: ignore[arg-type]
         header = etree.SubElement(root, _tag("Header"))
         etree.SubElement(header, _tag("MessageId")).text = message_id
-        etree.SubElement(header, _tag("CreatedAt")).text = (
-            datetime.now(UTC).isoformat(timespec="seconds")
+        etree.SubElement(header, _tag("CreatedAt")).text = datetime.now(UTC).isoformat(
+            timespec="seconds"
         )
         etree.SubElement(header, _tag("SourceNode")).text = self._node
         body = etree.SubElement(root, _tag("Body"))

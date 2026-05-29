@@ -54,9 +54,7 @@ class TestConnectorReadCatalog:
 
     @pytest.mark.asyncio
     async def test_read_counterparty_via_odata(self, httpx_mock: HTTPXMock) -> None:
-        httpx_mock.add_response(
-            json={"value": [{"Ref_Key": "cp-001", "Description": "ООО Тест"}]}
-        )
+        httpx_mock.add_response(json={"value": [{"Ref_Key": "cp-001", "Description": "ООО Тест"}]})
         connector = OneCConnector(_CONFIG)
         result = await connector.read_catalog("Контрагент")
         assert result[0]["Description"] == "ООО Тест"
@@ -73,9 +71,7 @@ class TestConnectorReadCatalog:
 class TestConnectorCreateOrder:
     @pytest.mark.asyncio
     async def test_create_order_calls_http_service(self, httpx_mock: HTTPXMock) -> None:
-        httpx_mock.add_response(
-            json={"Ref_Key": "order-new-001", "Number": "Ш000001"}
-        )
+        httpx_mock.add_response(json={"Ref_Key": "order-new-001", "Number": "Ш000001"})
         connector = OneCConnector(_CONFIG)
         order = SalesOrder(
             guid="order-local-001",

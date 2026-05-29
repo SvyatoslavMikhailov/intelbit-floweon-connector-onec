@@ -98,9 +98,7 @@ class TestEDCounterparty:
 
 class TestEDWarehouse:
     def test_round_trip(self) -> None:
-        wh = EDWarehouse(
-            ref_key="wh-001", code="СК001", description="Основной склад", is_main=True
-        )
+        wh = EDWarehouse(ref_key="wh-001", code="СК001", description="Основной склад", is_main=True)
         elem = wh.to_xml()
         restored = EDWarehouse.from_xml(elem)
         assert restored.is_main is True
@@ -198,9 +196,7 @@ class TestEnterpriseDataClient:
         client = _make_client(httpx_mock)
         entities = [{"__type__": "Catalog.Номенклатура", "Ref_Key": "x", "Description": "Тест"}]
         msg_id = await client.send_message(entities)
-        assert re.match(
-            r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}", msg_id
-        )
+        assert re.match(r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}", msg_id)
 
     @pytest.mark.asyncio
     async def test_send_message_xml_contains_namespace(self, httpx_mock: HTTPXMock) -> None:

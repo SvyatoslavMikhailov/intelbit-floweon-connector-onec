@@ -19,7 +19,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["ruff", "mypy", "pytest", "pytest-asyncio", "pytest-httpx", "lxml-stubs", "types-PyYAML", "fakeredis"]
+dev = ["ruff", "mypy", "pytest", "pytest-asyncio", "pytest-httpx", "lxml-stubs", "types-PyYAML", "fakeredis", "fastapi"]
 
 [project.urls]
 Homepage = "https://github.com/SvyatoslavMikhailov/intelbit-river-connector-onec"
@@ -50,4 +50,7 @@ ignore_missing_imports = true
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 testpaths = ["tests"]
-addopts = "--import-mode=importlib"
+addopts = "--import-mode=importlib -m 'not contract'"
+markers = [
+    "contract: контрактные тесты с полным FastAPI-моком 1С сервера",
+]
