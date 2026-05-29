@@ -26,10 +26,16 @@ class OneCHttpServiceError(Exception):
 class OneCHttpServiceClient:
     """Async-клиент HTTPСервисов 1С с retry и idempotency."""
 
-    def __init__(self, config: dict[str, Any], auth: OneCAuth) -> None:
+    def __init__(
+        self,
+        config: dict[str, Any],
+        auth: OneCAuth,
+        _transport: httpx.AsyncBaseTransport | None = None,
+    ) -> None:
         self._base_url = config["base_url"].rstrip("/")
         self._timeout: float = float(config.get("timeout", 30.0))
         self._auth = auth
+        self._transport = _transport
 
     async def call(
         self,
@@ -62,7 +68,7 @@ class OneCHttpServiceClient:
         headers: dict[str, str],
     ) -> dict[str, Any]:
         url = f"{self._base_url}{path}"
-        async with httpx.AsyncClient(timeout=self._timeout) as client:
+        async with httpx.AsyncClient(timeout=self._timeout, transport=self._transport) as client:
             response = await client.request(
                 method,
                 url,

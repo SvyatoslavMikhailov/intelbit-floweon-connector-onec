@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing import Any
 
+import httpx
+
 from intelbit_river_connector_onec.auth import BasicAuth, OAuthClientCredentials, OneCAuth
 from intelbit_river_connector_onec.enterprise_data import EnterpriseDataClient
 from intelbit_river_connector_onec.http_service import OneCHttpServiceClient
@@ -32,17 +34,25 @@ def _build_auth(auth_config: dict[str, Any]) -> OneCAuth:
 class OneCConnector:
     """Коннектор 1С (УТ 11.5, КА 2.5, ERP 2.5)."""
 
-    def __init__(self, config: dict[str, Any]) -> None:
+    def __init__(
+        self,
+        config: dict[str, Any],
+        _transport: httpx.AsyncBaseTransport | None = None,
+    ) -> None:
         self.config = config
         auth = _build_auth(config.get("auth", {}))
         self._ed = EnterpriseDataClient(
             config.get("enterprise_data", {"base_url": "http://localhost/ed"}), auth
         )
         self._http = OneCHttpServiceClient(
-            config.get("http_service", {"base_url": "http://localhost/api"}), auth
+            config.get("http_service", {"base_url": "http://localhost/api"}),
+            auth,
+            _transport=_transport,
         )
         self._odata = OneCODataClient(
-            config.get("odata", {"base_url": "http://localhost/odata/standard.odata"}), auth
+            config.get("odata", {"base_url": "http://localhost/odata/standard.odata"}),
+            auth,
+            _transport=_transport,
         )
         self._webhooks = OneCWebhookReceiver(
             config.get("webhooks", {"webhook_secret": "dev-secret"})

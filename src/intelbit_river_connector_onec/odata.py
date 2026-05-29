@@ -12,10 +12,16 @@ from intelbit_river_connector_onec.auth import OneCAuth
 class OneCODataClient:
     """Чтение данных 1С через стандартный OData-интерфейс (только чтение)."""
 
-    def __init__(self, config: dict[str, Any], auth: OneCAuth) -> None:
+    def __init__(
+        self,
+        config: dict[str, Any],
+        auth: OneCAuth,
+        _transport: httpx.AsyncBaseTransport | None = None,
+    ) -> None:
         self._base_url = config["base_url"].rstrip("/")
         self._timeout: float = float(config.get("timeout", 30.0))
         self._auth = auth
+        self._transport = _transport
 
     async def query(
         self,
@@ -42,7 +48,7 @@ class OneCODataClient:
         headers = await self._auth.get_headers()
         headers["Accept"] = "application/json"
         url = f"{self._base_url}/{entity}"
-        async with httpx.AsyncClient(timeout=self._timeout) as client:
+        async with httpx.AsyncClient(timeout=self._timeout, transport=self._transport) as client:
             response = await client.get(url, params=params, headers=headers)
             response.raise_for_status()
 
@@ -56,7 +62,7 @@ class OneCODataClient:
         headers["Accept"] = "application/json"
         url = f"{self._base_url}/{entity}(guid'{key}')"
         params = {"$format": "json"}
-        async with httpx.AsyncClient(timeout=self._timeout) as client:
+        async with httpx.AsyncClient(timeout=self._timeout, transport=self._transport) as client:
             response = await client.get(url, params=params, headers=headers)
             if response.status_code == 404:
                 return None
