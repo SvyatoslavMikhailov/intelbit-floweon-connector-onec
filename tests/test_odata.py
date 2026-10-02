@@ -7,8 +7,8 @@ from pathlib import Path
 import pytest
 from pytest_httpx import HTTPXMock
 
-from intelbit_river_connector_onec.auth import BasicAuth
-from intelbit_river_connector_onec.odata import OneCODataClient
+from intelbit_floweon_connector_onec.auth import BasicAuth
+from intelbit_floweon_connector_onec.odata import OneCODataClient
 
 FIXTURES = Path(__file__).parent / "fixtures" / "onec-mocks" / "odata"
 

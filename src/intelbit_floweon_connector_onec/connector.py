@@ -1,4 +1,4 @@
-"""OneCConnector — реальная реализация коннектора 1С для Интелбит:Река."""
+"""OneCConnector — реальная реализация коннектора 1С для Интелбит.Фловеон."""
 
 from __future__ import annotations
 
@@ -6,12 +6,12 @@ from typing import Any
 
 import httpx
 
-from intelbit_river_connector_onec.auth import BasicAuth, OAuthClientCredentials, OneCAuth
-from intelbit_river_connector_onec.enterprise_data import EnterpriseDataClient
-from intelbit_river_connector_onec.http_service import OneCHttpServiceClient
-from intelbit_river_connector_onec.models import SalesOrder
-from intelbit_river_connector_onec.odata import OneCODataClient
-from intelbit_river_connector_onec.webhooks import OneCWebhookReceiver
+from intelbit_floweon_connector_onec.auth import BasicAuth, OAuthClientCredentials, OneCAuth
+from intelbit_floweon_connector_onec.enterprise_data import EnterpriseDataClient
+from intelbit_floweon_connector_onec.http_service import OneCHttpServiceClient
+from intelbit_floweon_connector_onec.models import SalesOrder
+from intelbit_floweon_connector_onec.odata import OneCODataClient
+from intelbit_floweon_connector_onec.webhooks import OneCWebhookReceiver
 
 # Сущности, читаемые через OData (быстрее, чем EnterpriseData)
 _ODATA_ENTITIES = frozenset(["Номенклатура", "Контрагент", "Склад"])

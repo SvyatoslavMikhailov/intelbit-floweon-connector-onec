@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "intelbit-river-connector-onec"
+name = "intelbit-floweon-connector-onec"
 version = "0.2.0"
-description = "Коннектор 1С (УТ 11.5, КА 2.5, ERP 2.5) для Интелбит:Река"
+description = "Коннектор 1С (УТ 11.5, КА 2.5, ERP 2.5) для Интелбит.Фловеон"
 authors = [{ name = "Святослав Михайлов", email = "vceo@intelbit.ru" }]
 readme = "README.md"
 requires-python = ">=3.12"
@@ -22,9 +22,9 @@ dependencies = [
 dev = ["ruff", "mypy", "pytest", "pytest-asyncio", "pytest-httpx", "lxml-stubs", "types-PyYAML", "fakeredis", "fastapi"]
 
 [project.urls]
-Homepage = "https://github.com/SvyatoslavMikhailov/intelbit-river-connector-onec"
-Repository = "https://github.com/SvyatoslavMikhailov/intelbit-river-connector-onec"
-Documentation = "https://github.com/SvyatoslavMikhailov/intelbit-river-connector-onec/tree/main/docs"
+Homepage = "https://github.com/SvyatoslavMikhailov/intelbit-floweon-connector-onec"
+Repository = "https://github.com/SvyatoslavMikhailov/intelbit-floweon-connector-onec"
+Documentation = "https://github.com/SvyatoslavMikhailov/intelbit-floweon-connector-onec/tree/main/docs"
 
 [tool.ruff]
 line-length = 100

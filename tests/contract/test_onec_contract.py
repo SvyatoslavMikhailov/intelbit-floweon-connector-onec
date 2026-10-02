@@ -9,9 +9,9 @@ OneCODataClient и OneCHttpServiceClient.
 import httpx
 import pytest
 
-from intelbit_river_connector_onec.auth import BasicAuth
-from intelbit_river_connector_onec.http_service import OneCHttpServiceClient
-from intelbit_river_connector_onec.odata import OneCODataClient
+from intelbit_floweon_connector_onec.auth import BasicAuth
+from intelbit_floweon_connector_onec.http_service import OneCHttpServiceClient
+from intelbit_floweon_connector_onec.odata import OneCODataClient
 from tests.mock_onec_server.main import app
 
 pytestmark = pytest.mark.contract

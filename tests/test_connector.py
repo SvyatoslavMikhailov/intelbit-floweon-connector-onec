@@ -11,9 +11,9 @@ from decimal import Decimal
 import pytest
 from pytest_httpx import HTTPXMock
 
-from intelbit_river_connector_onec.connector import OneCConnector
-from intelbit_river_connector_onec.models import OrderLine, SalesOrder
-from intelbit_river_connector_onec.webhooks import WebhookSignatureError
+from intelbit_floweon_connector_onec.connector import OneCConnector
+from intelbit_floweon_connector_onec.models import OrderLine, SalesOrder
+from intelbit_floweon_connector_onec.webhooks import WebhookSignatureError
 
 SECRET = "test-webhook-secret-32-bytes-long"
 

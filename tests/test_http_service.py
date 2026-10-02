@@ -5,8 +5,8 @@ from __future__ import annotations
 import pytest
 from pytest_httpx import HTTPXMock
 
-from intelbit_river_connector_onec.auth import BasicAuth
-from intelbit_river_connector_onec.http_service import OneCHttpServiceClient, OneCHttpServiceError
+from intelbit_floweon_connector_onec.auth import BasicAuth
+from intelbit_floweon_connector_onec.http_service import OneCHttpServiceClient, OneCHttpServiceError
 
 
 def _make_client() -> OneCHttpServiceClient:
@@ -49,7 +49,7 @@ class TestOneCHttpServiceClient:
         await client.call("GET", "/api/test/")
         request = httpx_mock.get_requests()[0]
         assert request.headers["Accept"] == "application/json"
-        assert "intelbit-river-connector-onec/0.2.0" in request.headers["User-Agent"]
+        assert "intelbit-floweon-connector-onec/0.2.0" in request.headers["User-Agent"]
 
     @pytest.mark.asyncio
     async def test_400_raises_onec_http_service_error(self, httpx_mock: HTTPXMock) -> None:

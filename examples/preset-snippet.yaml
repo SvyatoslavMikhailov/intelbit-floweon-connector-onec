@@ -1,14 +1,14 @@
-# Фрагмент preset.yaml — подключение коннектора 1С к Интелбит:Река
+# Фрагмент preset.yaml — подключение коннектора 1С к Интелбит.Фловеон
 # Вставить в секцию connectors вашего preset.yaml
 
 connectors:
   onec:
-    plugin: intelbit-river-connector-onec
+    plugin: intelbit-floweon-connector-onec
     version: ">=0.1.0"
     config:
       base_url: "http://1c-server.company.ru/UT11"
       auth_type: basic
-      username: "river_user"
+      username: "floweon_user"
       password: "${secrets.ONEC_PASSWORD}"
       timeout: 60
       verify_ssl: true

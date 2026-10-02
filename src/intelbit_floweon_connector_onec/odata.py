@@ -6,7 +6,7 @@ from typing import Any
 
 import httpx
 
-from intelbit_river_connector_onec.auth import OneCAuth
+from intelbit_floweon_connector_onec.auth import OneCAuth
 
 
 class OneCODataClient:

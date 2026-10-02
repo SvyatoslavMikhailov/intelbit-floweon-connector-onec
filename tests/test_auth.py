@@ -6,7 +6,7 @@ import time
 import pytest
 from pytest_httpx import HTTPXMock
 
-from intelbit_river_connector_onec.auth import BasicAuth, OAuthClientCredentials
+from intelbit_floweon_connector_onec.auth import BasicAuth, OAuthClientCredentials
 
 
 class TestBasicAuth:

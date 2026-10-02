@@ -11,7 +11,7 @@ from pathlib import Path
 import fakeredis
 import pytest
 
-from intelbit_river_connector_onec.webhooks import OneCWebhookReceiver, WebhookSignatureError
+from intelbit_floweon_connector_onec.webhooks import OneCWebhookReceiver, WebhookSignatureError
 
 FIXTURES = Path(__file__).parent / "fixtures" / "onec-mocks" / "webhooks"
 SECRET = "test-webhook-secret-32-bytes-long"

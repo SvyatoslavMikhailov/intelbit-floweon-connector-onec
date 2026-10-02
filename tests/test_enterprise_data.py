@@ -10,9 +10,9 @@ import pytest
 from lxml import etree
 from pytest_httpx import HTTPXMock
 
-from intelbit_river_connector_onec.auth import BasicAuth
-from intelbit_river_connector_onec.enterprise_data import EnterpriseDataClient
-from intelbit_river_connector_onec.enterprise_data_schema import (
+from intelbit_floweon_connector_onec.auth import BasicAuth
+from intelbit_floweon_connector_onec.enterprise_data import EnterpriseDataClient
+from intelbit_floweon_connector_onec.enterprise_data_schema import (
     NS,
     EDCounterparty,
     EDNomenclature,

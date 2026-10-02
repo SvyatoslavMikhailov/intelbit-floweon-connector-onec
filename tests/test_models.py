@@ -2,7 +2,7 @@
 
 from decimal import Decimal
 
-from intelbit_river_connector_onec.models import (
+from intelbit_floweon_connector_onec.models import (
     Counterparty,
     NomenclatureItem,
     NomenclatureType,

@@ -10,8 +10,8 @@ import httpx
 from lxml import etree
 from pydantic import BaseModel, Field
 
-from intelbit_river_connector_onec.auth import OneCAuth
-from intelbit_river_connector_onec.enterprise_data_schema import (
+from intelbit_floweon_connector_onec.auth import OneCAuth
+from intelbit_floweon_connector_onec.enterprise_data_schema import (
     ED_ENTITY_CLASSES,
     NS,
     _tag,

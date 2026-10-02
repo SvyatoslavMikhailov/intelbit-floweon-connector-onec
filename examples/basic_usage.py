@@ -6,7 +6,7 @@ v0.0.1 — skeleton. Методы поднимают NotImplementedError.
 
 import asyncio
 
-from intelbit_river_connector_onec import OneCConnector
+from intelbit_floweon_connector_onec import OneCConnector
 
 
 async def main() -> None:
@@ -14,7 +14,7 @@ async def main() -> None:
         config={
             "base_url": "http://1c-server.example.com/UT11",
             "auth_type": "basic",
-            "username": "river_user",
+            "username": "floweon_user",
             "password": "secret",
         }
     )

@@ -21,12 +21,12 @@
 ```yaml
 connectors:
   onec:
-    plugin: intelbit-river-connector-onec
+    plugin: intelbit-floweon-connector-onec
     version: ">=0.1.0"
     config:
       base_url: "http://1c-server.company.ru/UT11"
       auth_type: basic
-      username: "river_user"
+      username: "floweon_user"
       password: "${secrets.ONEC_PASSWORD}"
       timeout: 60
 ```

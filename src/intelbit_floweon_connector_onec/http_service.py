@@ -8,9 +8,9 @@ from typing import Any
 import httpx
 from tenacity import retry, retry_if_exception, stop_after_attempt, wait_exponential
 
-from intelbit_river_connector_onec.auth import OneCAuth
+from intelbit_floweon_connector_onec.auth import OneCAuth
 
-_USER_AGENT = "intelbit-river-connector-onec/0.2.0"
+_USER_AGENT = "intelbit-floweon-connector-onec/0.2.0"
 
 
 class OneCHttpServiceError(Exception):

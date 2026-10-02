@@ -1,5 +1,5 @@
 base_url: "http://localhost/1c/UT11"
-username: "river_user"
+username: "floweon_user"
 password: "secret"
 auth_type: "basic"
 timeout: 30
