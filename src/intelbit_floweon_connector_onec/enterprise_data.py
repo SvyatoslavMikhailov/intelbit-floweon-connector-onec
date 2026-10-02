@@ -17,7 +17,8 @@ from intelbit_floweon_connector_onec.enterprise_data_schema import (
     _tag,
 )
 
-_PARSER = etree.XMLParser(encoding="utf-8", recover=False)
+# XXE-защита: внешние/внутренние сущности не раскрываются, сеть парсеру запрещена.
+_PARSER = etree.XMLParser(encoding="utf-8", recover=False, resolve_entities=False, no_network=True)
 
 
 class EnterpriseDataMessage(BaseModel):

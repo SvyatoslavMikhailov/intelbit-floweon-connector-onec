@@ -8,6 +8,11 @@ import json
 import time
 from typing import Any
 
+from intelbit_floweon_connector_onec.exceptions import ConfigurationError
+
+# Минимальная длина общего секрета HMAC: короче — подбирается/угадывается.
+MIN_SECRET_LENGTH = 16
+
 
 class WebhookSignatureError(ValueError):
     """Ошибка проверки подписи входящего webhook."""
@@ -22,7 +27,15 @@ class OneCWebhookReceiver:
     """Проверка и разбор входящих webhook-событий от 1С."""
 
     def __init__(self, config: dict[str, Any]) -> None:
-        self._secret: str = config["webhook_secret"]
+        secret = config.get("webhook_secret")
+        if not isinstance(secret, str) or not secret.strip():
+            raise ConfigurationError(
+                "Не задан webhooks.webhook_secret (обязателен при webhooks.enabled=true)"
+            )
+        if len(secret) < MIN_SECRET_LENGTH:
+            # Длину называем, значение — никогда.
+            raise ConfigurationError(f"webhooks.webhook_secret короче {MIN_SECRET_LENGTH} символов")
+        self._secret: str = secret
         self._replay_window: int = int(config.get("replay_window_sec", 300))
 
     def verify_signature(self, headers: dict[str, str], body: bytes) -> None:
