@@ -26,11 +26,13 @@ pip install intelbit-floweon-connector-onec
 ```python
 from intelbit_floweon_connector_onec import OneCConnector
 
-connector = OneCConnector(config={
-    "base_url": "http://your-1c-server/base",
-    "username": "floweon_user",
-    "password": "secret",
-})
+connector = OneCConnector(
+    config={
+        "base_url": "http://your-1c-server/base",
+        "username": "floweon_user",
+        "password": "secret",
+    }
+)
 # v0.0.1: методы — stubs, реализация в v0.1.0
 ```
 
