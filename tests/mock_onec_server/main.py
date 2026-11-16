@@ -152,7 +152,7 @@ async def odata_stocks(
 
 @app.post("/api/orders/")
 async def create_order(request: Request) -> dict[str, Any]:
-    """Создание заказа покупателя — аналог POST /intelbit_river/orders/."""
+    """Создание заказа покупателя — аналог POST /intelbit_floweon/orders/."""
     body: dict[str, Any] = await request.json()
 
     order_number = body.get("order_number", "")
